@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Vani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="bg-layer"></div>
+  <div id="particles"></div>
+
+  <div class="wrapper">
+
+    <!-- ── Header ── -->
+    <header>
+      <div class="logo-wrap">
+        <button class="theme-toggle" id="themeToggle" onclick="toggleThemeMode()" title="Toggle Light / Dark Mode">
+          <span class="theme-icon" id="themeIcon">🌙</span>
+          <span class="theme-ripple"></span>
+        </button>
+        <h1>Weather Vani</h1>
+      </div>
+      <p class="tagline">The Voice of the Sky</p>
+    </header>
+
+    <!-- ── Search Section ── -->
+    <div class="search-section">
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span class="icon">🔍</span>
+          <input type="text" id="cityInput" placeholder="Search any city…" autocomplete="off" />
+        </div>
+        <button class="btn btn-primary" onclick="searchCity()">⚡ Search</button>
+        <button class="btn btn-secondary" onclick="detectLocation()">📍 My Location</button>
+        <button class="btn btn-unit" id="unitBtn" onclick="toggleUnit()">°F</button>
+      </div>
+
+      <!-- ── History Row ── -->
+      <div class="history-row" id="historyRow" style="display:none;">
+        <div class="history-header">
+          <span class="history-label">🕒 Recent Searches</span>
+          <div class="history-actions">
+            <button class="btn-manage" id="manageBtn" onclick="toggleManageMode()">✏️ Manage</button>
+            <button class="btn-clear-all" id="clearAllBtn" onclick="clearAllHistory()" style="display:none;">🗑 Clear All</button>
+            <button class="btn-done" id="doneBtn" onclick="toggleManageMode()" style="display:none;">✅ Done</button>
+          </div>
+        </div>
+        <div id="historyChips" class="history-chips-wrap"></div>
+      </div>
+    </div>
+
+    <!-- ── Delete Confirmation Modal ── -->
+    <div id="deleteModal" class="modal-overlay" style="display:none;">
+      <div class="modal-box">
+        <div class="modal-icon">🗑️</div>
+        <h3 class="modal-title">Remove City?</h3>
+        <p class="modal-text">Remove <strong id="modalCityName"></strong> from your recent searches?</p>
+        <div class="modal-actions">
+          <button class="btn btn-danger" id="confirmDeleteBtn">Yes, Remove</button>
+          <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Error ── -->
+    <div id="errorMsg"></div>
+
+    <!-- ── Loader ── -->
+    <div id="loader">
+      <div class="spinner"></div>
+      <p class="loader-text">FETCHING WEATHER…</p>
+    </div>
+
+    <!-- ── Main Weather ── -->
+    <div id="weatherMain">
+
+      <!-- Current Weather Card -->
+      <div class="weather-card" id="currentCard">
+        <div class="city-row">
+          <div>
+            <div class="city-name" id="cityName">—</div>
+            <div class="city-country" id="cityCountry">—</div>
+          </div>
+          <div class="weather-date" id="weatherDate">—</div>
+        </div>
+        <div class="temp-row">
+          <div class="weather-icon" id="weatherIcon">🌤</div>
+          <div>
+            <div class="temp-main" id="tempMain">—</div>
+            <div class="weather-desc" id="weatherDesc">—</div>
+            <div class="temp-feel" id="tempFeel">Feels like —</div>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">💧</div>
+            <div class="stat-value" id="humidity">—</div>
+            <div class="stat-label">Humidity</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💨</div>
+            <div class="stat-value" id="windSpeed">—</div>
+            <div class="stat-label">Wind</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🌡</div>
+            <div class="stat-value" id="pressure">—</div>
+            <div class="stat-label">Pressure</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👁</div>
+            <div class="stat-value" id="visibility">—</div>
+            <div class="stat-label">Visibility</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">☀️</div>
+            <div class="stat-value" id="sunrise">—</div>
+            <div class="stat-label">Sunrise</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🌅</div>
+            <div class="stat-value" id="sunset">—</div>
+            <div class="stat-label">Sunset</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-Day Forecast -->
+      <div class="weather-card">
+        <div class="section-title">📆 5-Day Forecast</div>
+        <div class="forecast-grid" id="forecastGrid"></div>
+      </div>
+
+    </div><!-- /weatherMain -->
+
+    <footer>Weather Vani &nbsp;·&nbsp; Powered by OpenWeatherMap &nbsp;·&nbsp; Stay sky-aware 🌤 &nbsp;·&nbsp; © Developed by Team SAAS</footer>
+  </div><!-- /wrapper -->
+
+  <script src="app.js"></script>
+</body>
+</html>
